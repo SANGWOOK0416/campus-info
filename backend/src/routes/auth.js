@@ -25,11 +25,22 @@ const User = require('../models/User');
 router.post('/sync', authMiddleware, async (req, res) => {
   try {
     const auth0_id = req.user.sub;
+    
+    // [추가된 부분] 클라이언트가 Body에 담아 보낸 정보들을 꺼내옴
+    const { email, name, major, grade, student_id } = req.body;
+
     let user = await User.findOne({ auth0_id: auth0_id });
 
     if (!user) {
-      // 내 DB에 없으면 새로 가입
-      user = new User({ auth0_id: auth0_id });
+      // [수정된 부분] 내 DB에 없으면 새로 가입할 때 필수 정보들을 다 넣어서 생성
+      user = new User({ 
+        auth0_id: auth0_id,
+        email: email,
+        name: name,
+        major: major,
+        grade: grade,
+        student_id: student_id
+      });
       await user.save();
       console.log('✅ [Sync] 새로운 유저 DB 등록 완료!');
       return res.status(201).json({ message: '회원가입 및 동기화 완료', user });
