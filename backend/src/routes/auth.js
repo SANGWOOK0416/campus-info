@@ -16,36 +16,32 @@
 
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const authMiddleware = require('../middleware/auth');
 
-// POST /api/auth/sync - Auth0 로그인 후 사용자 정보를 DB에 동기화
+// 아까 만든 문지기(middleware)와 유저(User) 모델을 데려옴
+const authMiddleware = require('../middleware/auth');
+const User = require('../models/User');
+
+// POST /api/auth/sync
 router.post('/sync', authMiddleware, async (req, res) => {
   try {
-    // 1. Auth0 토큰에서 고유 ID(sub)만 확실하게 뽑아냄
-    const auth0_id = req.auth.payload.sub;
-    
-    // 2. email과 name은 토큰이 아닌 프론트엔드(req.body)에서 안전하게 받음
-    const { email, name, student_id, major, grade } = req.body;
-
-    let user = await User.findOne({ auth0_id });
+    const auth0_id = req.user.sub;
+    let user = await User.findOne({ auth0_id: auth0_id });
 
     if (!user) {
-      // [추가된 방어 로직] 최초 가입 시 프론트엔드가 필수 정보를 다 보냈는지 검사
-      if (!email || !name || !student_id || !major || !grade) {
-        return res.status(400).json({ 
-          message: "최초 동기화 실패: 이메일, 이름, 학번, 전공, 학년 정보가 모두 필요합니다." 
-        });
-      }
-
-      // 새로운 사용자인 경우 DB에 저장
-      user = new User({ auth0_id, email, name, student_id, major, grade });
+      // 내 DB에 없으면 새로 가입!
+      user = new User({ auth0_id: auth0_id });
       await user.save();
+      console.log('✅ [Sync] 새로운 유저 DB 등록 완료!');
+      return res.status(201).json({ message: '회원가입 및 동기화 완료', user });
     }
 
-    res.status(200).json(user);
+    // 이미 가입되어 있으면 통과!
+    console.log('✅ [Sync] 기존 유저 동기화 완료!');
+    res.status(200).json({ message: '동기화 완료', user });
+
   } catch (error) {
-    res.status(500).json({ message: '사용자 동기화 실패', error: error.message });
+    console.error('🔥 [Sync] 에러 발생:', error.message);
+    res.status(500).json({ message: '동기화 중 서버 에러가 발생했습니다.', error: error.message });
   }
 });
 
