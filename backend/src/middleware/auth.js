@@ -17,11 +17,30 @@
 
 const { auth } = require('express-oauth2-jwt-bearer');
 
-// Auth0 서버를 통해 클라이언트가 보낸 토큰이 유효한지 검증
-const authMiddleware = auth({
-  audience: process.env.AUTH0_AUDIENCE,
-  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
-  tokenSigningAlg: 'RS256'
-});
+const authMiddleware = (req, res, next) => {
+  // 1. 설정값 정의
+  const audience = 'https://campus-info-api';
+  const issuerBaseURL = 'https://dev-fbp6urdelvw2mwig.us.auth0.com/';
+
+  console.log('--- 🔍 인증 시도 로그 ---');
+  console.log('1. 설정된 Audience:', audience);
+  console.log('2. 설정된 Issuer:', issuerBaseURL);
+  
+  // 2. 실제 인증 수행
+  return auth({
+    audience: audience,
+    issuerBaseURL: issuerBaseURL,
+    tokenSigningAlg: 'RS256',
+  })(req, res, (err) => {
+    if (err) {
+      console.log('❌ 인증 실패 상세 사유:', err.message);
+      // 만약 401이 뜨면, Auth0에서 공개키를 제대로 못 가져온 경우가 많아.
+      if (err.inner) console.log('➡️ 내부 에러 메시지:', err.inner.message);
+      return res.status(401).json({ error: err.message });
+    }
+    console.log('✅ 인증 성공!');
+    next();
+  });
+};
 
 module.exports = authMiddleware;
