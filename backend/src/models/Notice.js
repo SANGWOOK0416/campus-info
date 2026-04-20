@@ -1,16 +1,12 @@
-const mongoose = require('mongoose');
+// TODO: mongoose import
 
-const noticeSchema = new mongoose.Schema({
-  list_no:    { type: Number, required: true, unique: true },
-  title:      { type: String, required: true },
-  content:    { type: String },
-  author:     { type: String, required: true },
-  created_at: { type: Date, required: true },
-  view_count: { type: Number, required: true, default: 0 },
-  source_url: { type: String, required: true },
-  is_pinned:  { type: Boolean, required: true, default: false },
-  crawled_at: { type: Date, required: true, default: Date.now },
-  updated_at: { type: Date },
-});
+// TODO: Notice 스키마 정의
+// - title: String, required
+// - content: String
+// - source: String (크롤링 출처, 예: '학생처', '공학대학')
+// - url: String, required, unique (원본 공지사항 URL)
+// - crawledAt: Date (크롤링 시각)
+// - 필요한 필드 추가 (카테고리, 첨부파일 등)
+// - timestamps: true
 
-module.exports = mongoose.model('Notice', noticeSchema);
+// TODO: mongoose.model('Notice', noticeSchema) export
