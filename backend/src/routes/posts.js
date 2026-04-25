@@ -154,6 +154,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
 const Comment = require('../models/Comment');
 const Like = require('../models/Like');
+const { notifyNewComment } = require('../notifications/sseManager');
 
 // 댓글 작성 (Auth0 인증 필요)
 
@@ -171,6 +172,12 @@ router.post('/:id/comments', authMiddleware, async (req, res) => {
     });
 
     await newComment.save();
+
+    // 본인 게시글에 본인이 댓글 달면 알림 제외
+    if (post.user_id.toString() !== user._id.toString()) {
+      notifyNewComment(post.user_id, newComment);
+    }
+
     res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json({ message: '댓글 작성에 실패했습니다.', error: error.message });
