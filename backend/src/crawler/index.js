@@ -1,5 +1,6 @@
 const Notice = require('../models/Notice');
 const { parseNotices, CRAWL_TARGETS } = require('./parser');
+const { notifyNewNotice } = require('../notifications/sseManager');
 
 const crawl = async () => {
   try {
@@ -16,6 +17,7 @@ const crawl = async () => {
             const newNotice = new Notice(notice);
             await newNotice.save();
             allNewNotices.push(newNotice);
+            notifyNewNotice(newNotice);
           } else {
             await Notice.updateOne(
               { list_no: notice.list_no },
