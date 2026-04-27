@@ -35,7 +35,6 @@ function notifyNewNotice(notice) {
 // 댓글 알림 — 게시글 작성자에게만
 function notifyNewComment(postAuthorId, comment) {
   sendToUser(postAuthorId.toString(), 'new_comment', {
-    message: '새로운 댓글이 있습니다.',
     commentId: comment._id,
     postId: comment.post_id,
     content: comment.content,
