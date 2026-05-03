@@ -1,27 +1,71 @@
 .loginContainer {
   height: calc(100vh - 120px);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: auto;
 }
 
 .whiteBox {
-  display: flex; width: 850px; background: white;
-  border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  width: 850px;
+  min-width: 850px;
+  height: 550px;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 .leftImage {
-  flex: 1.2;
-  background: url('../assets/logimg.jpg') center/cover; 
-  min-height: 500px;
+  flex: 0 0 450px;
+  background: url('../assets/logimg.jpg') center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.logoOverlay { color: white; text-align: center; background: rgba(0,0,0,0.3); width: 100%; padding: 20px; }
-.rightForm { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-.rightForm input { padding: 12px; margin-bottom: 10px; border: 1px solid var(--gray-border); border-radius: 5px; }
-.btnPrimary { border: 1px solid var(--gray-border); background: var(--orange-main); color: white; padding: 12px; font-weight: bold; border-radius: 5px; margin-top: 10px; }
-.btnGoogle { border: 1px solid var(--gray-border); padding: 10px; border-radius: 5px; margin-top: 15px; }
-@media (max-width: 768px) { .leftImage { display: none; } .whiteBox { width: 90%; } }
+
+.logoOverlay {
+  color: white;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  width: 100%;
+  padding: 20px;
+}
+
+.rightForm {
+  flex: 0 0 400px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rightForm input {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--gray-border);
+  border-radius: 5px;
+}
+
+.btnPrimary {
+  border: 1px solid var(--gray-border);
+  background: var(--orange-main);
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.btnGoogle {
+  border: 1px solid var(--gray-border);
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
 
 h1 {
   color: #ff6b00;

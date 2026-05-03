@@ -1,37 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import './Gradecommunity.css';
+import React, { useEffect } from 'react';
 import communityLogo from '../assets/community.png';
 
-const BoardCard = ({ title, icon, isLarge }) => {
-  return (
-    <div className={`board-card ${isLarge ? 'large' : 'small'}`}>
-      <div className="board-header">
-        <span className="board-icon">
-          <img src={icon} alt={title} className="header-icon-img" />
-        </span>
-        <h2 className="board-title">{title}</h2>
-      </div>
-      <div className="board-content">
-      </div>
-    </div>
-  );
-};
-
-const Home = () => {
+const GradeBoard = () => {
   useEffect(() => {
   }, []);
 
   return (
     <main className="main-container">
-      <div className="announce-grid-layout">
-        <BoardCard 
-          title="학년 게시판"
-          icon={communityLogo} 
-          isLarge={true}
-        />
+      <div className="single-layout">
+        <div className="board-card">
+          <div className="board-header">
+            <div className="header-left">
+              <img src={communityLogo} alt="학년 게시판" className="header-icon-img" />
+              <h2 className="board-title">학년 게시판</h2>
+            </div>
+          </div>
+          <div className="board-content">
+          </div>
+        </div>
       </div>
     </main>
   );
 };
 
-export default Home;
+export default GradeBoard;

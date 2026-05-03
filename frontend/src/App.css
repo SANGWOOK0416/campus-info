@@ -3,8 +3,12 @@
   --orange-light: #fff5ed;
   --gray-text: #666;
   --gray-border: #e2e2e2;
-  --bg-color: #ffffff;
+  --bg-color: #f8f9fa;
   --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -14,20 +18,214 @@ body {
   color: #333;
 }
 
-* { box-sizing: border-box; }
-
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: inherit !important;
 }
 
 .main-container {
+  padding: 60px 20px;
+  width: 1850px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.single-layout {
+  width: 100%;
+}
+
+.side-boards {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.board-card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  min-height: 800px;
+}
+
+.board-card.large {
+  min-height: 800px;
+}
+
+.board-card.small {
+  min-height: 390px;
+}
+
+.board-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  line-height: 1;
+}
+
+.header-icon-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.board-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  color: #333;
+}
+
+.post-meta {
+  padding: 20px 28px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.board-content {
   flex: 1;
+  padding: 24px;
 }
 
-.navLinks a, .mobileMenuLinks a, .footer-links a {
-  text-decoration: none;
-  color: inherit; /* 부모 요소의 색상을 그대로 따름 */
+.footer {
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f1f1;
 }
 
+.like-button {
+  background: none;
+  border: 0px solid var(--gray-border);
+  border-radius: 8px;
+  width: 44px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--orange-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1850px) {
+  .main-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .main-container {
+    padding: 30px 20px;
+  }
+  .board-card.large, .board-card.small {
+    min-height: 400px;
+  }
+}
+
+/* 댓글 영역 전체 감싸기 */
+.comment-wrapper {
+  padding: 0 28px 40px 28px; /* 아래쪽 여유를 줌 */
+  background-color: var(--white);
+}
+
+/* 로그인 안 되어 있을 때 배너 */
+.comment-login-banner {
+  background-color: var(--bg-color);
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: var(--gray-text);
+  font-size: 0.95rem;
+}
+
+.login-link-btn {
+  background: none;
+  border: none;
+  color: var(--orange-main) !important;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* 댓글 입력창 컨테이너 */
+.comment-input-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.comment-input-container:focus-within {
+  border-color: var(--orange-main);
+}
+
+.comment-textarea {
+  width: 100%;
+  min-height: 100px;
+  border: none;
+  padding: 15px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.comment-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 15px;
+  background-color: #fcfcfc;
+  border-top: 1px solid #f1f1f1;
+}
+
+.comment-submit-btn {
+  background-color: var(--orange-main);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.comment-submit-btn:hover {
+  opacity: 0.9;
+}
