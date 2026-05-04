@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import './Announce.css';
 import announceLogo from '../assets/announce.png';
 
-const BoardCard = ({ title, icon, isLarge }) => {
-  return (
-    <div className={`board-card ${isLarge ? 'large' : 'small'}`}>
-      <div className="board-header">
-        <span className="board-icon">
-          <img src={icon} alt={title} className="header-icon-img" />
-        </span>
-        <h2 className="board-title">{title}</h2>
-      </div>
-      <div className="board-content">
-      </div>
-    </div>
-  );
-};
-
-const Home = () => {
+const Announce = () => {
   useEffect(() => {
   }, []);
 
   return (
     <main className="main-container">
-      <div className="announce-grid-layout">
-        <BoardCard 
-          title="공지사항" 
-          icon={announceLogo}
-          isLarge={true}
-        />
+      <div className="single-layout">
+        <div className="board-card">
+          <div className="board-header">
+            <div className="header-left">
+              <img src={announceLogo} alt="공지사항" className="header-icon-img" />
+              <h2 className="board-title">공지사항</h2>
+            </div>
+          </div>
+          <div className="board-content">
+
+          </div>
+        </div>
       </div>
     </main>
   );
 };
 
-export default Home;
+export default Announce;
