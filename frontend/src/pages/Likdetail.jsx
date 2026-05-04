@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import communityLogo from '../assets/community.png';
+import writecommentLogo from '../assets/writtencomment.png';
 import { FaReply } from 'react-icons/fa';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
-const GradeDetail = () => {
+const AnnounceDetail = () => {
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const [comment, setComment] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const data = {
-    title: "학년 게시글 제목",
-    author: "학생",
-    date: "2024.05.22",
-    content: "학년 게시판 내용입니다.",
-    filename: "grade_data.pdf"
+    title: "글 제목",
+    author: "본인",
+    date: "2024.05.20",
+    content: "글 내용입니다.",
+    filename: "notice.pdf"
   };
 
   return (
@@ -23,10 +23,10 @@ const GradeDetail = () => {
       <div className="board-card large">
         <div className="board-header detail-header">
           <div className="header-left">
-            <img src={communityLogo} alt="icon" className="header-icon-img" />
-            <h2 className="board-title">학년 게시판</h2>
+            <img src={writecommentLogo} alt="icon" className="header-icon-img" />
+            <h2 className="board-title">글 내용</h2>
           </div>
-          <button onClick={() => window.history.back()} style={{background:'none', border:'none', cursor:'pointer'}}>
+          <button className="back-button" onClick={() => window.history.back()} style={{background:'none', border:'none', cursor:'pointer'}}>
              <FaReply style={{ transform: 'scaleX(-1)', color: '#ff6b00' }} />
           </button>
         </div>
@@ -76,4 +76,4 @@ const GradeDetail = () => {
   );
 };
 
-export default GradeDetail;
+export default AnnounceDetail;

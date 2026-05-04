@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import communityLogo from '../assets/community.png';
+import React, { useEffect, useState } from 'react';
+import heartLogo from '../assets/heart.png';
 
-const MajorBoard = () => {
+const Announce = () => {
   useEffect(() => {
   }, []);
 
@@ -11,11 +11,12 @@ const MajorBoard = () => {
         <div className="board-card">
           <div className="board-header">
             <div className="header-left">
-              <img src={communityLogo} alt="전공 게시판" className="header-icon-img" />
-              <h2 className="board-title">전공 게시판</h2>
+              <img src={heartLogo} alt="좋아요 남긴 글" className="header-icon-img" />
+              <h2 className="board-title">좋아요 남긴 글</h2>
             </div>
           </div>
           <div className="board-content">
+
           </div>
         </div>
       </div>
@@ -23,4 +24,4 @@ const MajorBoard = () => {
   );
 };
 
-export default MajorBoard;
+export default Announce;
